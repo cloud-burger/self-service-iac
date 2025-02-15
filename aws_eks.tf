@@ -83,9 +83,44 @@ module "eks" {
   tags = local.tags
 }
 
+locals {
+  namespace_list = {
+    istio = "istio-system"
+    self-service = "self-service"
+  }
+}
+
 resource "kubernetes_namespace_v1" "istio_system" {
+  for_each = local.namespace_list
   depends_on = [module.eks]
   metadata {
-    name = "istio-system"
+    name = each.value
   }
+}
+
+resource "kubectl_manifest" "istio_gateway" {
+  depends_on = [kubernetes_namespace_v1.istio_system]
+  yaml_body = <<YAML
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: self-service-gateway
+  namespace: self-service
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - "*"
+      port:
+        name: http
+        number: 80
+        protocol: HTTP
+    - hosts:
+        - "*"
+      port:
+        name: http-443
+        number: 443
+        protocol: HTTP
+YAML
 }
