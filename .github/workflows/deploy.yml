@@ -107,12 +107,16 @@ jobs:
       - name: Deploy Payments
         run: |
           cd app/payments
-          terraform init && terraform apply -auto-approve
+          terraform init && terraform apply -var "database_password=${{ secrets.DATABASE_PASSWORD }}" -auto-approve
+        env:
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
       - name: Deploy Orders
         run: |
           cd app/orders
-          terraform init && terraform apply -var "commit_hash=${{ github.sha }}" -auto-approve
+          terraform init && terraform apply -var "database_password=${{ secrets.DATABASE_PASSWORD }}" -var "commit_hash=${{ github.sha }}" -auto-approve
+        env:
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
   terraform_destroy_microservices:
     name: "Destroy Microservices"
