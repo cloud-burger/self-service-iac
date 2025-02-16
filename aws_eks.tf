@@ -52,6 +52,7 @@ module "eks" {
   eks_managed_node_groups = {
     initial = {
       instance_types = ["m5.large"]
+      capacity_type  = "SPOT"
 
       min_size     = 1
       max_size     = 4
