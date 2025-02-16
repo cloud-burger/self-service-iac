@@ -8,7 +8,7 @@ resource "aws_db_instance" "self_service_payments" {
   db_name              = var.database_name
   username             = var.database_username
   password             = var.database_password
-  parameter_group_name = "default.postgres16"
+  parameter_group_name = "postgres16"
   publicly_accessible  = true
 
   db_subnet_group_name   = aws_db_subnet_group.main.name
