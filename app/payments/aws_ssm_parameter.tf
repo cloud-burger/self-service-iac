@@ -1,12 +1,12 @@
 resource "aws_ssm_parameter" "database_host" {
   name  = "/prod/${var.project}/database-host"
-  value = aws_db_instance.postgres.endpoint
+  value = aws_db_instance.self_service_payments.endpoint
   type  = "String"
 }
 
 resource "aws_ssm_parameter" "database_port" {
   name  = "/prod/${var.project}/database-port"
-  value = aws_db_instance.postgres.port
+  value = aws_db_instance.self_service_payments.port
   type  = "String"
 }
 
