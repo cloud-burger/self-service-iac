@@ -56,6 +56,10 @@ module "eks" {
       min_size     = 1
       max_size     = 4
       desired_size = 1
+      iam_role_additional_policies = {
+        dynamoDB = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+        SQS      = "arn:aws:iam::aws:policy/AmazonSQSFullAccess"
+      }
     }
   }
   # EKS Addons
