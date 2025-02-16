@@ -7,7 +7,7 @@ module "process_order_payment" {
   source_key         = "process-order-payment.zip"
   project            = var.project
   subnet_ids         = local.aws_private_subnets
-  security_group_ids = [aws_security_group.lambda_auth_sg.id]
+  security_group_ids = [aws_security_group.lambda_process_order_payment.id]
   source_code_hash   = base64encode(sha256("${var.commit_hash}"))
 
   environment_variables = {
