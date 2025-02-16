@@ -1,10 +1,10 @@
-resource "aws_db_instance" "postgres" {
+resource "aws_db_instance" "self_service_payments" {
   allocated_storage    = 20
   storage_type         = "gp3"
   engine               = "postgres"
   engine_version       = "16.7"
   instance_class       = var.database_instance_class
-  identifier           = "postgres"
+  identifier           = var.project
   db_name              = var.database_name
   username             = var.database_username
   password             = var.database_password

@@ -7,5 +7,5 @@ variable "region" {
 }
 
 variable "project" {
-  default = "customers"
+  default = "self-service-customers"
 }
