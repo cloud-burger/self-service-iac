@@ -48,19 +48,20 @@ module "eks" {
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
-
+  eks_managed_node_group_defaults = {
+    capacity_type = "SPOT"
+    iam_role_additional_policies = {
+      dynamoDB = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+      SQS      = "arn:aws:iam::aws:policy/AmazonSQSFullAccess"
+    }
+  }
   eks_managed_node_groups = {
     initial = {
       instance_types = ["m5.large"]
-      capacity_type  = "SPOT"
 
       min_size     = 1
       max_size     = 4
       desired_size = 1
-      iam_role_additional_policies = {
-        dynamoDB = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
-        SQS      = "arn:aws:iam::aws:policy/AmazonSQSFullAccess"
-      }
     }
   }
   # EKS Addons
