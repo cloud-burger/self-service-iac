@@ -15,7 +15,7 @@ module "process_order_payment" {
     DATABASE_NAME               = resource.aws_ssm_parameter.database_name.value
     DATABASE_PASSWORD           = resource.aws_ssm_parameter.database_password.value
     DATABASE_PORT               = resource.aws_ssm_parameter.database_port.value
-    DATABASE_HOST               = resource.aws_ssm_parameter.database_host.value
+    DATABASE_HOST               = trim(resource.aws_ssm_parameter.database_host.value, ":5432")
     DATABASE_CONNECTION_TIMEOUT = 120000
   }
 }
