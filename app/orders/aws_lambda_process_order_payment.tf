@@ -24,5 +24,4 @@ resource "aws_lambda_event_source_mapping" "process_order_payment_event_source_m
   event_source_arn = aws_sqs_queue.process_order_payment_queue.arn
   enabled          = true
   function_name    = module.process_order_payment.arn
-  batch_size       = 10
 }
